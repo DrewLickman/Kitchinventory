@@ -1631,35 +1631,11 @@
 				<div class="modal-header recipe-header">
 					<h3>{selectedRecipe.name}</h3>
 
-					<div class="recipe-badges">
-						{#if selectedRecipe.cookTime}
-							<span class="recipe-badge">
-								<i class="far fa-clock"></i>
-								{selectedRecipe.cookTime}
-							</span>
-						{/if}
-						{#if selectedRecipe.difficulty}
-							<span class="recipe-badge">
-								<i class="fas fa-utensils"></i>
-								{selectedRecipe.difficulty}
-							</span>
-						{/if}
-						{#if selectedRecipe.calories}
-							<span class="recipe-badge">
-								<i class="fas fa-fire"></i>
-								{selectedRecipe.calories} cal
-							</span>
-						{/if}
-						{#if selectedRecipe.servings}
-							<span class="recipe-badge">
-								<i class="fas fa-user"></i>
-								{selectedRecipe.servings}
-								{selectedRecipe.servings > 1
-									? "servings"
-									: "serving"}
-							</span>
-						{/if}
-					</div>
+					<img
+						src={selectedRecipe.image.replace("/150", "/150")}
+						alt={selectedRecipe.name}
+						class="recipe-header-image"
+					/>
 
 					<button
 						on:click={() => toggleRecipeDetail()}
@@ -1669,11 +1645,34 @@
 					</button>
 				</div>
 
-				<div class="recipe-hero">
-					<img
-						src={selectedRecipe.image.replace("/150", "/800")}
-						alt={selectedRecipe.name}
-					/>
+				<div class="recipe-badges-container">
+					{#if selectedRecipe.cookTime}
+						<span class="recipe-badge">
+							<i class="far fa-clock"></i>
+							{selectedRecipe.cookTime}
+						</span>
+					{/if}
+					{#if selectedRecipe.difficulty}
+						<span class="recipe-badge">
+							<i class="fas fa-utensils"></i>
+							{selectedRecipe.difficulty}
+						</span>
+					{/if}
+					{#if selectedRecipe.calories}
+						<span class="recipe-badge">
+							<i class="fas fa-fire"></i>
+							{selectedRecipe.calories} cal
+						</span>
+					{/if}
+					{#if selectedRecipe.servings}
+						<span class="recipe-badge">
+							<i class="fas fa-user"></i>
+							{selectedRecipe.servings}
+							{selectedRecipe.servings > 1
+								? "servings"
+								: "serving"}
+						</span>
+					{/if}
 				</div>
 
 				<div class="modal-content recipe-detail">
@@ -3018,17 +3017,7 @@
 	}
 
 	/* Recipe Modal */
-	.recipe-hero {
-		position: relative;
-	}
-
-	.recipe-hero img {
-		width: 100%;
-		height: 200px;
-		object-fit: cover;
-	}
-
-	.recipe-badges {
+	.recipe-hero .recipe-badges {
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -3052,6 +3041,13 @@
 
 	.recipe-detail {
 		padding-top: 2rem;
+	}
+
+	.recipe-header .recipe-badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: center;
 	}
 
 	.recipe-columns {
@@ -3467,10 +3463,29 @@
 	}
 
 	.recipe-header {
-		display: grid;
+		display: flex;
 		grid-template-columns: 1fr auto auto;
 		align-items: center;
 		gap: 1rem;
+		padding: 0.75rem 1rem;
+	}
+
+	.recipe-header-image {
+		width: 100%;
+		height: 38px;
+		border-radius: 4px;
+		object-fit: cover;
+		margin-right: 0.5rem;
+	}
+
+	.recipe-badges-container {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		padding: 1rem;
+		background-color: #262626;
+		border-bottom: 1px solid #333;
 	}
 
 	.recipe-badges {
