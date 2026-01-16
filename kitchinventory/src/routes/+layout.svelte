@@ -4,7 +4,6 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { ensureDefaults } from '$lib/db/bootstrap';
-	import { pwaInfo } from 'virtual:pwa-info';
 	import ReloadPrompt from '$lib/pwa/ReloadPrompt.svelte';
 
 	let { children } = $props();
@@ -25,8 +24,8 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<link rel="manifest" href="/manifest.webmanifest" />
 	<meta name="theme-color" content="#0f0f12" />
-	{@html pwaInfo?.webManifest?.linkTag ?? ''}
 </svelte:head>
 
 <div class="min-h-dvh">

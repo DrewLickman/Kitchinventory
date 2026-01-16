@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { exportBackup, restoreBackup } from '$lib/db/backup';
 	import { downloadJson, readJsonFile } from '$lib/device/files';
+	import { seedExampleData } from '$lib/usecases/seedExampleData';
 
 	let busy = false;
 	let message: { type: 'ok' | 'err'; text: string } | null = null;
@@ -37,6 +38,22 @@
 	function setMessage(next: typeof message) {
 		message = next;
 	}
+
+	async function loadExampleData() {
+		setMessage(null);
+		busy = true;
+		try {
+			const { addedProducts, addedBatches } = await seedExampleData();
+			setMessage({
+				type: 'ok',
+				text: `Loaded example data: ${addedProducts} products, ${addedBatches} batches.`
+			});
+		} catch (e) {
+			setMessage({ type: 'err', text: e instanceof Error ? e.message : String(e) });
+		} finally {
+			busy = false;
+		}
+	}
 </script>
 
 <div class="space-y-6">
@@ -50,6 +67,23 @@
 			Settings are available in the browser.
 		</div>
 	{:else}
+		<div class="rounded-xl border border-white/10 bg-white/5 p-4">
+			<h2 class="text-base font-semibold">Example data</h2>
+			<p class="mt-1 text-sm text-[rgb(var(--muted))]">
+				Adds a handful of sample products and inventory batches so you can click around.
+			</p>
+			<div class="mt-3">
+				<button
+					type="button"
+					class="rounded-md bg-white/10 px-3 py-2 text-sm font-medium hover:bg-white/15 disabled:opacity-50"
+					disabled={busy}
+					on:click={loadExampleData}
+				>
+					Load example data
+				</button>
+			</div>
+		</div>
+
 		<div class="rounded-xl border border-white/10 bg-white/5 p-4">
 			<h2 class="text-base font-semibold">Backup</h2>
 			<p class="mt-1 text-sm text-[rgb(var(--muted))]">

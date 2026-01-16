@@ -3,7 +3,6 @@ import { expect, test } from '@playwright/test';
 test('app loads and can navigate', async ({ page }) => {
 	page.on('console', async (msg) => {
 		// Helpful when debugging CI/dev failures
-		// eslint-disable-next-line no-console
 		console.log(`[browser:${msg.type()}] ${msg.text()}`);
 		if (msg.type() === 'error' || msg.type() === 'trace' || msg.type() === 'warning') {
 			try {
@@ -16,7 +15,6 @@ test('app loads and can navigate', async ({ page }) => {
 						}
 					})
 				);
-				// eslint-disable-next-line no-console
 				console.log(`[browser:${msg.type()}:args]`, values);
 			} catch {
 				// ignore
@@ -24,7 +22,6 @@ test('app loads and can navigate', async ({ page }) => {
 		}
 	});
 	page.on('pageerror', (err) => {
-		// eslint-disable-next-line no-console
 		console.log(`[browser:error] ${err.message}\n${err.stack ?? ''}`);
 	});
 
