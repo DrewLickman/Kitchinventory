@@ -2,6 +2,10 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { ensureDefaults } from '$lib/db/bootstrap';
+	import { pwaInfo } from 'virtual:pwa-info';
+	import ReloadPrompt from '$lib/pwa/ReloadPrompt.svelte';
 
 	let { children } = $props();
 
@@ -13,10 +17,16 @@
 		{ href: '/scan', label: 'Scan' },
 		{ href: '/settings', label: 'Settings' }
 	] as const;
+
+	onMount(() => {
+		ensureDefaults().catch((err) => console.error(err));
+	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta name="theme-color" content="#0f0f12" />
+	{@html pwaInfo?.webManifest?.linkTag ?? ''}
 </svelte:head>
 
 <div class="min-h-dvh">
@@ -49,3 +59,5 @@
 		{@render children()}
 	</main>
 </div>
+
+<ReloadPrompt />
