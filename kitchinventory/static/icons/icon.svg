@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0f0f12"/>
+  <path d="M140 352c0-92 48-160 116-160s116 68 116 160" fill="none" stroke="#4caf50" stroke-width="28" stroke-linecap="round"/>
+  <path d="M188 200h136" stroke="#e0e0e0" stroke-width="18" stroke-linecap="round"/>
+  <path d="M220 160h72" stroke="#e0e0e0" stroke-width="18" stroke-linecap="round"/>
+  <text x="256" y="420" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="44" fill="#e0e0e0">KI</text>
+</svg>
+
